@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "Input",
+  name: "Button",
   methods: {
     testAlert () {
       alert('test alert')

@@ -4,21 +4,60 @@
       <meta charset="utf-8">
     </header>
     <!-- Page slot here -->
-    <slot/>
+    <div class="mainSlideWrapper">
+      <slot/>
+      <div class="askForHelp">Ask for support</div>
+    </div>
   </div>
 </template>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+  --main-blue-color: #1547D0;
+  --main-black-color: #000000;
+  --main-white-color: #FFFFFF;
+  --main-grey-color: #797979;
+  --main-green-color: #00CCAD;
+}
+
+html {
+  background-image: url(mainBackground1024.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 body {
-  background-color: grey;
-  font-family: 'Raleway', sans-serif;
+  overflow: hidden;
+  font-family: 'Roboto Mono', Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
   margin:0;
   padding:0;
   font-size: 16pt;
   line-height: 1.5;
 }
-.layout {
-  /* height: 100vh; */
+
+.mainSlideWrapper {
+  display: flex;
+  flex-direction: column;
+  margin: 10vh 45vw 10vh 10vh;
+  background-color: var(--main-white-color);
+  border: 1px solid var(--main-black-color);
 }
+
+.askForHelp {
+  height: 26px;
+  margin-top: 41px;
+  margin-bottom: 30px;
+  margin-left: 51px;
+  color: var(--main-grey-color);
+  font-size: 1.25rem;
+}
+
+.layout {
+  height: 100vh;
+}
+
 </style>

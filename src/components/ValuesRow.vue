@@ -68,7 +68,7 @@ export default {
 }
 
 .rowValuesWrapper::-webkit-scrollbar {
-  width: 10px;
+  height: 15px;
 }
 
 .rowValuesWrapper::-webkit-scrollbar-track {

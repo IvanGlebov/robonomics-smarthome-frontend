@@ -45,6 +45,7 @@
 import Button from "../components/Button";
 import Input from "../components/Input";
 import FileInput from "../components/FileInput";
+import { mapMutations } from "vuex";
 
 export default {
   name: "AddDevice",
@@ -74,7 +75,28 @@ export default {
       console.log(`Device name: ${this.deviceName}`)
       console.log(`Device image url: ${this.filePath}`)
       console.log(`Device some param: ${this.parameter}`)
-    }
+      let device = {
+        id: 4,
+        name: this.deviceName,
+        imgPath: this.filePath,
+        param: this.parameter,
+        recentlyAdded: true
+      }
+      //TODO server request to add new device
+      // here
+      // If response if OK -> this.addNewDevice
+      // -> redirect to main and setTimeout for 5-10 seconds to fetch
+      // information about device state and make it not 'recentlyAdded'
+      this.addNewDevice(device)
+      this.$router.push('/')
+      setTimeout(() => {
+        this.derecentDevice('4')
+      }, 10000)
+    },
+    ...mapMutations({
+      addNewDevice: 'addDevice',
+      derecentDevice: 'deRecentDevice'
+    })
   },
 
 }
@@ -135,13 +157,13 @@ export default {
   width: 70%;
 }
 
-.addNewDeviceButton {
-  margin-top: 100px;
-}
+/*.addNewDeviceButton {*/
+/*  margin-top: 100px;*/
+/*}*/
 
-.addNewDeviceButton_reduced {
-  margin-top: 50px;
-}
+/*.addNewDeviceButton_reduced {*/
+/*  margin-top: 50px;*/
+/*}*/
 
 .removeButton {
   display: flex;

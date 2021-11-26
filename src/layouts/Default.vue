@@ -20,6 +20,7 @@
   --main-black-color: #000000;
   --main-white-color: #FFFFFF;
   --main-grey-color: #797979;
+  --secondary-grey-color: #696969;
   --main-green-color: #00CCAD;
 }
 
@@ -49,6 +50,7 @@ body {
 
 .askForHelp {
   height: 26px;
+  padding-top: 20px;
   margin-top: 41px;
   margin-bottom: 30px;
   margin-left: 51px;

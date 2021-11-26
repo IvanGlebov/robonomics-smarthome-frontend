@@ -2,7 +2,7 @@
   <div class="tableWrapper">
     <div class="tableRow" v-for="row in rows">
       <div class="col1">{{row.name}}</div>
-      <div class="col2">{{row.value}}</div>
+      <div class="col2">{{row.value}}{{row.units}}</div>
     </div>
   </div>
 </template>
@@ -22,6 +22,7 @@ export default {
 </script>
 
 <style scoped>
+
 .tableWrapper {
   max-height: 100px;
   overflow-y: auto;
@@ -29,7 +30,26 @@ export default {
   flex-direction: column;
   padding: 4px 14px 14px;
   border: 1px solid var(--main-black-color);
-  width: 70%;
+  width: 100%;
+  /*width: calc(90% - 80px);*/
+}
+
+.tableWrapper::-webkit-scrollbar {
+  width: 15px;
+}
+
+.tableWrapper::-webkit-scrollbar-track {
+  background-color: #EFEFEF;
+  border-radius: 10px;
+  background-clip: content-box;
+  border: 2px solid transparent;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background-color: #D0C6C7;
+  border-radius: 10px;
+  background-clip: content-box;
+  border: 2px solid transparent;
 }
 
 .tableRow {
@@ -45,11 +65,11 @@ export default {
 }
 
 .col1 {
-  width: 50%;
+  width: 65%;
 }
 
 .col2 {
-  width: 50%;
+  width: 45%;
   text-align: left;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="inputWrapper">
-    <input @change="onChange" :placeholder="placeholder">
+    <input @input="$emit('input', $event.target.value)" :type="type" :placeholder="placeholder">
   </div>
 </template>
 
@@ -9,7 +9,8 @@ export default {
   name: "Input",
   props: {
     placeholder: String,
-    onChange: Function
+    // onChange: Function,
+    type: String
   }
 }
 </script>
@@ -20,7 +21,7 @@ export default {
   border-radius: 0;
   margin-top: 15px;
   width: calc(100% - 30px);
-  padding: 10px 14px 14px 14px;
+  padding: 14px 14px 14px 14px;
   font-size: 1.25rem;
 }
 </style>

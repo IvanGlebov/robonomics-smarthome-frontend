@@ -37,8 +37,9 @@
             <div>
               <g-link class="extrinsic">View extrinsic</g-link>
             </div>
-            <Input placeholder="Your message" :on-change="onInputChange"/>
-            <Button placeholder="Send message" @click="testAlert"/>
+            <Input placeholder="Your message"/>
+            <Input placeholder="Enter keyword"/>
+            <Button variant="next" placeholder="Send message" @click="testAlert"/>
           </div>
           <div class="controlDeviceWrapper">
             <div class="buttonsContainer">
@@ -48,7 +49,12 @@
               <button @click="setToJsonMode" :class="{activeButton: tableMode}">Table</button>
               <button @click="setToTableMode" :class="{activeButton: !tableMode}">Json</button>
             </div>
-            <Table class="retrieveDataTable" :rows="retrieveData"/>
+            <Table v-if="tableMode" class="retrieveDataTable" :rows="retrieveData"/>
+            <div v-if="!tableMode" class="retrieveDataJson">{{retrieveData}}</div>
+            <div class="decodeMessageWrapper">
+              <Input placeholder="Enter your key" :on-chang="onInputChange"/>
+              <Button variant="download" placeholder="Get new decoded data" @click="testAlert"/>
+            </div>
           </div>
         </div>
       </div>
@@ -64,6 +70,9 @@ import Input from "../components/Input";
 
 export default {
   name: "DeviceMessageSent.vue",
+  metaInfo: {
+    title: "Message sent"
+  },
   components: {Input, Button, Table},
   data: () => {
     return {
@@ -85,7 +94,7 @@ export default {
   },
   methods: {
     testAlert () {
-      alert('test alert')
+      alert(`test alert`)
     },
     goBack () {
       this.$router.push(`/device/${this.$route.params.deviceId[0]}`)
@@ -107,7 +116,7 @@ export default {
 <style scoped>
 
 .blockWrapper {
-  height: calc(80vh - 205px);
+  height: calc(80vh - 225px);
   padding: 53px;
 }
 
@@ -163,26 +172,6 @@ export default {
   font-size: 1.25rem;
 }
 
-.sendButton {
-  cursor: pointer;
-  margin-top: 9px;
-  border: 0;
-  font-size: 1.25rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--main-blue-color);
-  color: var(--main-white-color);
-  padding: 13px 21px 13px 15px;
-  height: auto;
-}
-
-/*.buttonWrapper {*/
-/*  width: 300px;*/
-/*  height: 200px;*/
-/*}*/
-
 .switchElement {
   position: relative;
   display: inline-block;
@@ -195,14 +184,6 @@ export default {
   font-size: 0.875rem;
   padding: 0 12px;
   margin: 0;
-}
-
-.buttonsContainer {
-  padding: 0;
-  margin: 0;
-  border-bottom: 1px solid var(--main-black-color);
-  justify-content: flex-end;
-  align-items: flex-end;
 }
 
 .tableJsonButtons {
@@ -229,9 +210,19 @@ export default {
   text-decoration: none;
 }
 
-button {
+.buttonsContainer {
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid var(--main-black-color);
+  justify-content: flex-end;
+  align-items: flex-end;
   position: relative;
-  top: 1px;
+  min-height: 30px;
+}
+
+button {
+  position: absolute;
+  bottom: -1px;
   width: 74px;
   height: 25px;
   background-color: transparent;
@@ -242,6 +233,10 @@ button {
   margin: 0;
 }
 
+button:not(:first-child) {
+  left: 74px;
+}
+
 .activeButton {
   background-color: var(--main-black-color);
   color: var(--main-white-color);
@@ -249,6 +244,14 @@ button {
 
 .retrieveDataTable {
   margin-top: 17px;
+}
+
+.retrieveDataJson {
+  padding-top: 20px;
+}
+
+.decodeMessageWrapper {
+  margin-top: 45px;
 }
 
 </style>

@@ -1,14 +1,16 @@
 <template>
-  <div class="deviceWrapper">
+  <div :class="{deviceWrapper: device.recentlyAdded !== true, recentlyAddedDeviceWrapper: device.recentlyAdded === true}">
     <div class='deviceImage'>
-      <g-image :src="imgSrc" alt="device image"/>
+      <g-image :src="device.imgSrc" alt="device image"/>
     </div>
     <div class='deviceStats'>
-      <div class='deviceName'>{{ name }}</div>
-      <span class='splitter'></span>
-      <ValuesRow :values="values"/>
+        <div class='deviceName'>{{ device.name }}</div>
+      <div v-if="device.recentlyAdded !== true">
+        <span class='splitter'></span>
+        <ValuesRow :values="device.values"/>
+      </div>
       <div>
-        <g-link :to="`/device/` + $props.deviceId" class="link">Manage</g-link>
+        <g-link :to="`/device/` + device.id" class="link">Manage</g-link>
       </div>
     </div>
   </div>
@@ -16,23 +18,27 @@
 
 <script>
 import ValuesRow from "./ValuesRow";
+
 export default {
   name: "DeviceCard",
   components: {ValuesRow},
   props: {
-    deviceId: String,
-    name: String,
-    imgSrc: String,
-    values: [
-      {
-        name: String,
-        value: Number,
-        units: String
-      }
-    ]
+    device: {
+      deviceId: String,
+      name: String,
+      imgSrc: String,
+      values: [
+        {
+          name: String,
+          value: Number,
+          units: String
+        }
+      ]
+    }
+
   },
   methods: {
-    testAlert: () => {
+    testAlert () {
       alert('test click')
     }
   }
@@ -43,9 +49,15 @@ export default {
 <style scoped>
 
 .deviceWrapper {
-  /*font-family: 'Roboto Mono', Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;*/
   padding: 24px 22px 32px 18px;
   border: 2px solid var(--main-black-color);
+  display: flex;
+  gap: 20px;
+}
+
+.recentlyAddedDeviceWrapper {
+  padding: 24px 22px 32px 18px;
+  border: 2px solid var(--main-green-color);
   display: flex;
   gap: 20px;
 }
@@ -60,6 +72,7 @@ export default {
 }
 
 .deviceStats {
+  transition: all .5s;
   width: 70%;
   display: flex;
   flex-direction: column;
@@ -76,4 +89,10 @@ export default {
   color: var(--main-blue-color);
 }
 
+@media screen and (min-width: 1700px) {
+  .deviceStats {
+    transition: all .5s;
+    width: 100%;
+  }
+}
 </style>

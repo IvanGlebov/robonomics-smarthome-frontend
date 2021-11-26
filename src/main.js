@@ -34,7 +34,8 @@ export default function (Vue, { router, head, isClient, appOptions }) {
               value: '745.3',
               units: 'mmHg'
             }
-          ]
+          ],
+          recentlyAdded: false,
         },
         {
           id: '2',
@@ -60,7 +61,8 @@ export default function (Vue, { router, head, isClient, appOptions }) {
               value: '745.3',
               units: 'mmHg'
             }
-          ]
+          ],
+          recentlyAdded: false,
         },
         {
           id: '3',
@@ -86,12 +88,25 @@ export default function (Vue, { router, head, isClient, appOptions }) {
               value: '745.3',
               units: 'mmHg'
             }
-          ]
+          ],
+          recentlyAdded: false,
         }
       ]
     },
     mutations: {
-
+      addDevice (state, device) {
+        console.log('pushing device into state')
+        console.log(device)
+        state.devices.push(device)
+        console.log('device added')
+      },
+      deRecentDevice (state, id) {
+        state.devices.map(device => {
+          if(device.id.toString() === id.toString()){
+            device.recentlyAdded = false
+          }
+        })
+      }
     },
     getters: {
       getDeviceById: state => deviceId => {
@@ -99,7 +114,10 @@ export default function (Vue, { router, head, isClient, appOptions }) {
       },
       getDevices: state => {
         return state.devices
+      },
+      getRecentlyAddedDevices: state => {
+        return state.devices.filter(v => v.recentlyAdded === true)
       }
-    }
+    },
   })
 }

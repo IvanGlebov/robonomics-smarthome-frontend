@@ -1,14 +1,17 @@
-# Default starter for Gridsome
+## Smarthome with robonomics
 
-This is the project you get when you run `gridsome create new-project`.
+### 1. Install all required packages
 
-### 1. Install Gridsome CLI tool if you don't have
+Run the following command :`yarn install`
 
-`npm install --global @gridsome/cli`
+### 2.1 Building
 
-### 2. Create a Gridsome project
+1. Run `yarn build`
+2. Wait for some time
+3. All build files will be located inside `/dist` folder
 
-1. `gridsome create my-gridsome-site` to install default starter
-2. `cd my-gridsome-site` to open the folder
-3. `gridsome develop` to start a local dev server at `http://localhost:8080`
-4. Happy coding 🎉🙌
+### 2.2 Dev deployment
+
+1. Run `yarn develop`
+2. Wait for some time
+3. You can find server on `http://localhost:8080`

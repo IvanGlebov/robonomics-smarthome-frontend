@@ -19,5 +19,9 @@ module.exports = function (api) {
         path: '/device/:deviceId/messageSent/:messageText',
         component: './src/templates/DeviceMessageSent.vue'
       })
+      createPage({
+        path: '/addDevice',
+        component: './src/templates/AddDevice.vue'
+      })
     })
 }

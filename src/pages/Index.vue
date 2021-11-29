@@ -82,6 +82,7 @@ export default {
 }
 
 .contentWrapper {
+  height: inherit;
   display: flex;
   flex-direction: column;
   gap: 39px;
@@ -91,7 +92,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 39px;
-  height: 500px;
+  /*height: 500px;*/
   overflow-y: auto;
 }
 

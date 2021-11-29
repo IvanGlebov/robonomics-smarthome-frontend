@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <div class="blockWrapper">
-      <div class="contentWrapper">
+<!--      <div class="contentWrapper">-->
         <div class="headerWrapper">
           <div @click="goBack" class="backArrow">
             <svg xmlns="http://www.w3.org/2000/svg" width="63.225" height="46.677" viewBox="0 0 63.225 46.677">
@@ -16,7 +16,7 @@
           </div>
           <div class="header">{{ deviceName }}</div>
         </div>
-      </div>
+<!--      </div>-->
       <div class="deviceCardWrapper">
         <div class="deviceImageWrapper">
           <g-image alt="device img"/>
@@ -126,9 +126,6 @@ export default {
 
 </script>
 
-
-
-
 <style lang="css" scoped>
 
 .blockWrapper {
@@ -155,18 +152,19 @@ export default {
   line-height: 1.25;
 }
 
-.contentWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 39px;
-}
+/*.contentWrapper {*/
+/*  height: inherit;*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  gap: 39px;*/
+/*}*/
 
 
 .deviceCardWrapper {
   display: flex;
-  height: calc(100% - 140px);
+  height: calc(100% - 190px);
   overflow-y: auto;
-  margin-top: 60px;
+  margin-top: 50px;
   padding-top: 30px;
 }
 

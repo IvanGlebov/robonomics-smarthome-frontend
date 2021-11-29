@@ -30,7 +30,7 @@ export default {
   flex-direction: column;
   padding: 4px 14px 14px;
   border: 1px solid var(--main-black-color);
-  width: 100%;
+  width: calc(100% - 80px);
   /*width: calc(90% - 80px);*/
 }
 
@@ -58,6 +58,7 @@ export default {
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom: 1px solid black;
+  font-size: 1rem;
 }
 
 .tableRow:last-child {

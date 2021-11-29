@@ -46,6 +46,7 @@ body {
   margin: 10vh 45vw 10vh 10vh;
   background-color: var(--main-white-color);
   border: 1px solid var(--main-black-color);
+  transition: all .5s;
 }
 
 .askForHelp {
@@ -60,6 +61,33 @@ body {
 
 .layout {
   height: 100vh;
+}
+
+@media screen and (max-width: 1230px) {
+  .mainSlideWrapper {
+    transition: all .5s;
+    margin: 10vh 40vw 10vh 10vh;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .mainSlideWrapper {
+    transition: all .5s;
+    margin: 10vh 35vw 10vh 10vh;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .mainSlideWrapper {
+    transition: all .5s;
+    margin: 10vh 30vw 10vh 10vh;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .mainSlideWrapper {
+    transition: all .5s;
+    margin: 10vh;
+  }
 }
 
 </style>

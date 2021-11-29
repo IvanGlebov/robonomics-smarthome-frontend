@@ -125,11 +125,15 @@ export default {
 }
 
 </script>
+
+
+
+
 <style lang="css" scoped>
 
 .blockWrapper {
   height: calc(80vh - 225px);
-  padding: 53px;
+  padding: 53px 53px 0;
 }
 
 .headerWrapper {
@@ -160,9 +164,28 @@ export default {
 
 .deviceCardWrapper {
   display: flex;
-  height: 100%;
+  height: calc(100% - 140px);
   overflow-y: auto;
-  padding-top: 90px;
+  margin-top: 60px;
+  padding-top: 30px;
+}
+
+.deviceCardWrapper::-webkit-scrollbar {
+  width: 15px;
+}
+
+.deviceCardWrapper::-webkit-scrollbar-track {
+  background-color: #EFEFEF;
+  border-radius: 10px;
+  background-clip: content-box;
+  border: 2px solid transparent;
+}
+
+.deviceCardWrapper::-webkit-scrollbar-thumb {
+  background-color: #D0C6C7;
+  border-radius: 10px;
+  background-clip: content-box;
+  border: 2px solid transparent;
 }
 
 .deviceImageWrapper {
@@ -230,36 +253,6 @@ button:not(:first-child) {
   justify-content: space-between;
 }
 
-.tableWrapper {
-  max-height: 100px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  padding: 4px 14px 14px;
-  border: 1px solid var(--main-black-color);
-  width: calc(100% - 80px);
-}
-
-/*.tableRow {*/
-/*  display: flex;*/
-/*  flex-direction: row;*/
-/*  padding-top: 10px;*/
-/*  padding-bottom: 10px;*/
-/*  border-bottom: 1px solid black;*/
-/*}*/
-
-/*.tableRow:last-child {*/
-/*  border-bottom: none;*/
-/*}*/
-
-/*.col1 {*/
-/*  width: 50%;*/
-/*}*/
-
-/*.col2 {*/
-/*  width: 50%;*/
-/*  text-align: left;*/
-/*}*/
 
 .controlDeviceWrapper {
   margin-top: 58px;
@@ -274,20 +267,20 @@ button:not(:first-child) {
   font-size: 1.25rem;
 }
 
-.sendButton {
-  cursor: pointer;
-  margin-top: 9px;
-  border: 0;
-  font-size: 1.25rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--main-blue-color);
-  color: var(--main-white-color);
-  padding: 13px 21px 13px 15px;
-  height: auto;
-}
+/*.sendButton {*/
+/*  cursor: pointer;*/
+/*  margin-top: 9px;*/
+/*  border: 0;*/
+/*  font-size: 1.25rem;*/
+/*  width: 100%;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  justify-content: space-between;*/
+/*  background-color: var(--main-blue-color);*/
+/*  color: var(--main-white-color);*/
+/*  padding: 13px 21px 13px 15px;*/
+/*  height: auto;*/
+/*}*/
 
 
 </style>

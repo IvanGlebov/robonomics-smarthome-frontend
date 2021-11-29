@@ -69,8 +69,8 @@ export default {
 
 <style lang='css' scoped>
 .blockWrapper {
-  height: calc(80vh - 205px);
-  padding: 53px;
+  height: calc(80vh - 225px);
+  padding: 53px 53px 0;
   /*overflow-y: auto;*/
 }
 

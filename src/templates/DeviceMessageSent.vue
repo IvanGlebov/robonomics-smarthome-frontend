@@ -117,7 +117,7 @@ export default {
 
 .blockWrapper {
   height: calc(80vh - 225px);
-  padding: 53px;
+  padding: 53px 53px 0;
 }
 
 .headerWrapper {
@@ -146,9 +146,27 @@ export default {
 }
 
 .deviceCardWrapper {
-  height: 100%;
+  height: calc(100% - 60px);
   display: flex;
   overflow-y: auto;
+}
+
+.deviceCardWrapper::-webkit-scrollbar {
+  width: 15px;
+}
+
+.deviceCardWrapper::-webkit-scrollbar-track {
+  background-color: #EFEFEF;
+  border-radius: 10px;
+  background-clip: content-box;
+  border: 2px solid transparent;
+}
+
+.deviceCardWrapper::-webkit-scrollbar-thumb {
+  background-color: #D0C6C7;
+  border-radius: 10px;
+  background-clip: content-box;
+  border: 2px solid transparent;
 }
 
 .deviceImageWrapper {

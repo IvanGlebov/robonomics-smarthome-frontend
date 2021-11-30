@@ -43,16 +43,18 @@ body {
 .mainSlideWrapper {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   margin: 10vh 35vw 10vh 10vh;
   background-color: var(--main-white-color);
   border: 1px solid var(--main-black-color);
   transition: all .5s;
+  height: 80vh;
 }
 
 .askForHelp {
   height: 26px;
   padding-top: 20px;
-  margin-top: 41px;
+  margin-top: 21px;
   margin-bottom: 30px;
   margin-left: 51px;
   color: var(--main-grey-color);
@@ -63,27 +65,12 @@ body {
   height: 100vh;
 }
 
-/*@media screen and (max-width: 1230px) {*/
-/*  .mainSlideWrapper {*/
-/*    transition: all .5s;*/
-/*    margin: 10vh 40vw 10vh 10vh;*/
-/*  }*/
-/*}*/
-
-/*@media screen and (max-width: 1150px) {*/
-/*  .mainSlideWrapper {*/
-/*    transition: all .5s;*/
-/*    margin: 10vh 35vw 10vh 10vh;*/
-/*  }*/
-/*}*/
-
 @media screen and (max-width: 1150px) {
   .mainSlideWrapper {
     transition: all .5s;
     margin: 10vh 25vw 10vh 10vh;
   }
 }
-
 
 @media screen and (max-width: 1050px) {
   .mainSlideWrapper {
@@ -109,6 +96,12 @@ body {
   .mainSlideWrapper {
     transition: all .5s;
     margin: 10vh 5vh;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  html {
+    font-size: 8pt;
   }
 }
 

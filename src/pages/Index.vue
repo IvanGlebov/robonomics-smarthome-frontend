@@ -74,10 +74,10 @@ export default {
 </script>
 
 <style lang='css' scoped>
+
 .blockWrapper {
-  height: calc(80vh - 225px);
+  height: 60vh;
   padding: 53px 53px 0;
-  /*overflow-y: auto;*/
 }
 
 .header {
@@ -148,6 +148,12 @@ export default {
   display: flex;
   align-items: center;
   gap: 24px;
+}
+
+@media screen and (max-width: 500px) {
+  .blockWrapper {
+    padding: 30px 10px 0 20px;
+  }
 }
 
 </style>

@@ -213,7 +213,6 @@ export default {
 }
 
 .deviceCardWrapper {
-  /* margin-top: 58px; */
   height: calc(100% - 125px);
   display: flex;
   overflow-y: auto;
@@ -277,8 +276,6 @@ export default {
 .tableJsonButtons {
   border: none;
   margin-top: 20px;
-  /*position: relative;*/
-  /*top: 1px;*/
 }
 
 .messageWritten {
@@ -341,4 +338,19 @@ button:not(:first-child) {
 .decodeMessageWrapper {
   margin-top: 45px;
 }
+
+@media screen and (max-width: 500px) {
+
+  .blockWrapper {
+    padding: 30px 30px 0;
+  }
+
+  .deviceImageWrapper {
+    display: none;
+  }
+  .deviceDataWrapper {
+    width: 90%;
+  }
+}
+
 </style>

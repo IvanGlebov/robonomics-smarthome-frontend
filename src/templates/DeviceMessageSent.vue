@@ -1,59 +1,127 @@
 <template>
   <Layout>
     <div class="blockWrapper">
-<!--      <div class="contentWrapper">-->
+      <div class="contentWrapper">
         <div class="headerWrapper">
           <div @click="goBack" class="backArrow">
-            <svg xmlns="http://www.w3.org/2000/svg" width="63.225" height="46.677" viewBox="0 0 63.225 46.677">
-              <g id="Component_3_1" data-name="Component 3 – 1" transform="translate(1 1.414)">
-                <path id="Path_4" data-name="Path 4" d="M150,1129.81h60.934" transform="translate(-149.709 -1107.976)"
-                      fill="none" stroke="#000" stroke-linecap="round" stroke-width="2"/>
-                <path id="Path_5" data-name="Path 5" d="M168.634,1107.976,146.709,1129.9l21.924,21.924"
-                      transform="translate(-146.709 -1107.976)" fill="none" stroke="#000" stroke-linecap="round"
-                      stroke-linejoin="round" stroke-width="2"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="63.225"
+              height="46.677"
+              viewBox="0 0 63.225 46.677"
+            >
+              <g
+                id="Component_3_1"
+                data-name="Component 3 – 1"
+                transform="translate(1 1.414)"
+              >
+                <path
+                  id="Path_4"
+                  data-name="Path 4"
+                  d="M150,1129.81h60.934"
+                  transform="translate(-149.709 -1107.976)"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-width="2"
+                />
+                <path
+                  id="Path_5"
+                  data-name="Path 5"
+                  d="M168.634,1107.976,146.709,1129.9l21.924,21.924"
+                  transform="translate(-146.709 -1107.976)"
+                  fill="none"
+                  stroke="#000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
               </g>
             </svg>
           </div>
           <div class="header">{{ device.name }}</div>
         </div>
-<!--      </div>-->
-      <div class="deviceCardWrapper">
-        <div class="deviceImageWrapper"></div>
-        <div class="deviceDataWrapper">
-          <div class="controlDeviceWrapper">
-            <div class="buttonsContainer">
-              <div class="switchElement">Control your device</div>
+        <div class="deviceCardWrapper">
+          <div class="deviceImageWrapper"></div>
+          <div class="deviceDataWrapper">
+            <div class="controlDeviceWrapper">
+              <div class="buttonsContainer">
+                <div class="switchElement">Control your device</div>
+              </div>
+              <div class="messageWritten">
+                <div class="messageText">
+                  Your message «{{ message }}» has been written successfully
+                </div>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="47.585"
+                  height="44.354"
+                  viewBox="0 0 47.585 44.354"
+                >
+                  <g
+                    id="Component_5_1"
+                    data-name="Component 5 – 1"
+                    transform="translate(1.543 1.566)"
+                  >
+                    <path
+                      id="Path_13"
+                      data-name="Path 13"
+                      d="M688.445,507.386l19.034,14.96L727.8,486.474"
+                      transform="translate(-598.257 -588.181) rotate(9)"
+                      fill="none"
+                      stroke="#00ccad"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                    />
+                  </g>
+                </svg>
+              </div>
+              <div>
+                <g-link class="extrinsic">View extrinsic</g-link>
+              </div>
+              <Input placeholder="Your message" />
+              <Input placeholder="Enter keyword" />
+              <Button
+                variant="next"
+                placeholder="Send message"
+                @click="testAlert"
+              />
             </div>
-            <div class="messageWritten">
-              <div class="messageText">Your message «{{ message }}» has been written successfully</div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="47.585" height="44.354" viewBox="0 0 47.585 44.354">
-                <g id="Component_5_1" data-name="Component 5 – 1" transform="translate(1.543 1.566)">
-                  <path id="Path_13" data-name="Path 13" d="M688.445,507.386l19.034,14.96L727.8,486.474"
-                        transform="translate(-598.257 -588.181) rotate(9)" fill="none" stroke="#00ccad"
-                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                </g>
-              </svg>
-            </div>
-            <div>
-              <g-link class="extrinsic">View extrinsic</g-link>
-            </div>
-            <Input placeholder="Your message"/>
-            <Input placeholder="Enter keyword"/>
-            <Button variant="next" placeholder="Send message" @click="testAlert"/>
-          </div>
-          <div class="controlDeviceWrapper">
-            <div class="buttonsContainer">
-              <div class="switchElement">Retrieve data</div>
-            </div>
-            <div class="buttonsContainer tableJsonButtons">
-              <button @click="setToJsonMode" :class="{activeButton: tableMode}">Table</button>
-              <button @click="setToTableMode" :class="{activeButton: !tableMode}">Json</button>
-            </div>
-            <Table v-if="tableMode" class="retrieveDataTable" :rows="retrieveData"/>
-            <div v-if="!tableMode" class="retrieveDataJson">{{retrieveData}}</div>
-            <div class="decodeMessageWrapper">
-              <Input placeholder="Enter your key" :on-chang="onInputChange"/>
-              <Button variant="download" placeholder="Get new decoded data" @click="testAlert"/>
+            <div class="controlDeviceWrapper">
+              <div class="buttonsContainer">
+                <div class="switchElement">Retrieve data</div>
+              </div>
+              <div class="buttonsContainer tableJsonButtons">
+                <button
+                  @click="setToJsonMode"
+                  :class="{ activeButton: tableMode }"
+                >
+                  Table
+                </button>
+                <button
+                  @click="setToTableMode"
+                  :class="{ activeButton: !tableMode }"
+                >
+                  Json
+                </button>
+              </div>
+              <Table
+                v-if="tableMode"
+                class="retrieveDataTable"
+                :rows="retrieveData"
+              />
+              <div v-if="!tableMode" class="retrieveDataJson">
+                {{ retrieveData }}
+              </div>
+              <div class="decodeMessageWrapper">
+                <Input placeholder="Enter your key" :on-chang="onInputChange" />
+                <Button
+                  variant="download"
+                  placeholder="Get new decoded data"
+                  @click="testAlert"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -64,57 +132,56 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Table from '../components/Table';
+import Table from "../components/Table";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
 export default {
   name: "DeviceMessageSent.vue",
   metaInfo: {
-    title: "Message sent"
+    title: "Message sent",
   },
-  components: {Input, Button, Table},
+  components: { Input, Button, Table },
   data: () => {
     return {
       device: {},
-      message: '',
+      message: "",
       tableMode: true,
       retrieveData: [
-        {name: 'Agent', value: 'lightbulb_on'},
-        {name: 'Parameter', value: ''}
-      ]
-    }
+        { name: "Agent", value: "lightbulb_on" },
+        { name: "Parameter", value: "" },
+      ],
+    };
   },
   computed: {
-    ...mapGetters(['getDeviceById'])
+    ...mapGetters(["getDeviceById"]),
   },
-  mounted () {
-    this.device  = this.getDeviceById(this.$route.params.deviceId)[0]
-    this.message = this.$route.params.messageText
+  mounted() {
+    this.device = this.getDeviceById(this.$route.params.deviceId)[0];
+    this.message = this.$route.params.messageText;
   },
   methods: {
-    testAlert () {
-      alert(`test alert`)
+    testAlert() {
+      alert(`test alert`);
     },
-    goBack () {
-      this.$router.push(`/device/${this.$route.params.deviceId[0]}`)
+    goBack() {
+      this.$router.push(`/device/${this.$route.params.deviceId[0]}`);
     },
-    setToTableMode () {
-      this.tableMode = false
+    setToTableMode() {
+      this.tableMode = false;
     },
-    setToJsonMode () {
-      this.tableMode = true
+    setToJsonMode() {
+      this.tableMode = true;
     },
-    onInputChange (e) {
-      console.log('on input change')
-      console.log(e)
-    }
-  }
-}
+    onInputChange(e) {
+      console.log("on input change");
+      console.log(e);
+    },
+  },
+};
 </script>
 
 <style scoped>
-
 .blockWrapper {
   height: calc(80vh - 225px);
   padding: 53px 53px 0;
@@ -132,16 +199,22 @@ export default {
 }
 
 .header {
-  font-family: 'Raleway', sans-serif;
-  text-wrap: normal;
+  font-family: "Raleway", sans-serif;
   font-size: 2.25rem;
   font-weight: 900;
   line-height: 1.25;
 }
 
+.contentWrapper {
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 49px;
+}
+
 .deviceCardWrapper {
-  margin-top: 58px;
-  height: calc(100% - 118px);
+  /* margin-top: 58px; */
+  height: calc(100% - 125px);
   display: flex;
   overflow-y: auto;
 }
@@ -151,14 +224,14 @@ export default {
 }
 
 .deviceCardWrapper::-webkit-scrollbar-track {
-  background-color: #EFEFEF;
+  background-color: #efefef;
   border-radius: 10px;
   background-clip: content-box;
   border: 2px solid transparent;
 }
 
 .deviceCardWrapper::-webkit-scrollbar-thumb {
-  background-color: #D0C6C7;
+  background-color: #d0c6c7;
   border-radius: 10px;
   background-clip: content-box;
   border: 2px solid transparent;
@@ -186,14 +259,16 @@ export default {
 }
 
 .switchElement {
-  position: relative;
+  position: absolute;
+  bottom: 0;
   display: inline-block;
   height: 25px;
   color: var(--main-white-color);
   background-color: var(--main-black-color);
   border: 1px solid var(--main-black-color);
   cursor: pointer;
-  font-family: 'Roboto Mono', Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+  font-family: "Roboto Mono", Menlo, Consolas, Monaco, Liberation Mono,
+    Lucida Console, monospace;
   font-size: 0.875rem;
   padding: 0 12px;
   margin: 0;
@@ -266,5 +341,4 @@ button:not(:first-child) {
 .decodeMessageWrapper {
   margin-top: 45px;
 }
-
 </style>

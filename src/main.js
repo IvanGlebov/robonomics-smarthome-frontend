@@ -36,6 +36,7 @@ export default function (Vue, { router, head, isClient, appOptions }) {
             }
           ],
           recentlyAdded: false,
+          imgSrc: "/devicePlaceholder.jpeg"
         },
         {
           id: '2',
@@ -63,6 +64,7 @@ export default function (Vue, { router, head, isClient, appOptions }) {
             }
           ],
           recentlyAdded: false,
+          imgSrc: '/devicePlaceholder.jpeg'
         },
         {
           id: '3',
@@ -90,6 +92,7 @@ export default function (Vue, { router, head, isClient, appOptions }) {
             }
           ],
           recentlyAdded: false,
+          imgSrc: '/devicePlaceholder.jpeg'
         }
       ]
     },

@@ -2,6 +2,8 @@
   <div :class="{deviceWrapper: device.recentlyAdded !== true, recentlyAddedDeviceWrapper: device.recentlyAdded === true}">
     <div class='deviceImage'>
       <g-image :src="device.imgSrc" alt="device image"/>
+<!--      <div>{{device.imgSrc}}</div>-->
+<!--      <g-image src="/devicePlaceholder.jpeg" alt="device image"/>-->
     </div>
     <div class='deviceStats'>
         <div class='deviceName'>{{ device.name }}</div>
@@ -68,7 +70,11 @@ export default {
 }
 
 .deviceImage {
-  width: 150px;
+  max-width: 150px;
+  width: 100%;
+}
+.deviceImage img {
+  width: inherit;
 }
 
 .deviceStats {

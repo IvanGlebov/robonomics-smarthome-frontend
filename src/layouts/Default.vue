@@ -29,6 +29,7 @@ html {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  font-size: 12pt;
 }
 
 body {
@@ -36,7 +37,6 @@ body {
   font-family: 'Roboto Mono', Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
   margin:0;
   padding:0;
-  font-size: 16pt;
   line-height: 1.5;
 }
 
@@ -102,6 +102,13 @@ body {
 @media screen and (max-width: 800px) {
   .deviceImageWrapper {
     width: 80px !important;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .mainSlideWrapper {
+    transition: all .5s;
+    margin: 10vh 5vh;
   }
 }
 

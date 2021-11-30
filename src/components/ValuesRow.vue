@@ -66,6 +66,7 @@ export default {
   overflow-x: auto;
   padding-bottom: 10px;
   font-size: 1rem;
+  margin-right: 10px;
 }
 
 .rowValuesWrapper::-webkit-scrollbar {

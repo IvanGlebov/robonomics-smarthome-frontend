@@ -16,8 +16,8 @@
             </svg>
             <div>Device «{{ getRecentlyAddedDevices[0].name }}» has been added</div>
           </div>
-          <DeviceCard v-for="device in devices" v-if="device.recentlyAdded === true" :device="device"/>
-          <DeviceCard v-for="device in devices" v-if="device.recentlyAdded !== true" :device="device"/>
+          <DeviceCard v-for="device in recentlyAddedDevices" :key="device.id" :device="device"/>
+          <DeviceCard v-for="device in notRecentlyAddedDevices" :key="device.id" :device="device"/>
           <div @click="goToAddDevice" class='addDeviceWrapper'>
             <div class="svgWrapper">
               <svg xmlns="http://www.w3.org/2000/svg" width="48.454" height="48.454" viewBox="0 0 48.454 48.454">
@@ -53,6 +53,12 @@ export default {
     }
   },
   computed: {
+    recentlyAddedDevices() {
+      return this.devices.filter(device => device.recentlyAdded === true)
+    },
+    notRecentlyAddedDevices() {
+      return this.devices.filter(device => device.recentlyAdded !== true)
+    },
     ...mapGetters(['getDevices', 'getRecentlyAddedDevices'])
   },
   mounted() {
@@ -92,7 +98,7 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 39px;
-  /*height: 500px;*/
+  padding-right: 10px;
   overflow-y: auto;
 }
 

@@ -76,7 +76,7 @@ export default {
 <style lang='css' scoped>
 
 .blockWrapper {
-  height: 60vh;
+  height: 64vh;
   padding: 53px 53px 0;
 }
 

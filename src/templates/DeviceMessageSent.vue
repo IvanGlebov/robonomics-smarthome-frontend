@@ -183,7 +183,7 @@ export default {
 
 <style scoped>
 .blockWrapper {
-  height: calc(80vh - 225px);
+  height: 64vh;
   padding: 53px 53px 0;
 }
 
@@ -209,7 +209,7 @@ export default {
   height: inherit;
   display: flex;
   flex-direction: column;
-  gap: 49px;
+  gap: 39px;
 }
 
 .deviceCardWrapper {
@@ -342,14 +342,14 @@ button:not(:first-child) {
 @media screen and (max-width: 500px) {
 
   .blockWrapper {
-    padding: 30px 30px 0;
+    padding: 30px 20px 0 30px;
   }
 
   .deviceImageWrapper {
     display: none;
   }
   .deviceDataWrapper {
-    width: 90%;
+    width: calc(100% - 10px);
   }
 }
 

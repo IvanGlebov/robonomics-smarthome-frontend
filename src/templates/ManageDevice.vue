@@ -43,7 +43,7 @@
         </div>
         <div class="deviceCardWrapper">
           <div class="deviceImageWrapper">
-            <g-image alt="device img" />
+            <g-image alt="device img" :src="device.imgSrc" />
           </div>
           <div class="deviceDataWrapper">
             <div class="buttonsContainer">
@@ -222,7 +222,7 @@ export default {
 
 <style lang="css" scoped>
 .blockWrapper {
-  height: calc(80vh - 225px);
+  height: 64vh;
   padding: 53px 53px 0;
 }
 
@@ -253,9 +253,9 @@ export default {
 
 .deviceCardWrapper {
   display: flex;
-  height: calc(100% - 190px);
+  height: 100%;
   overflow-y: auto;
-  /* margin-top: 50px; */
+  overflow-x: clip;
   padding-top: 30px;
   padding-right: 10px;
 }
@@ -279,7 +279,12 @@ export default {
 }
 
 .deviceImageWrapper {
-  width: 30%;
+  max-width: 150px;
+  width: 100%;
+}
+
+.deviceImageWrapper img {
+  width: inherit;
 }
 
 .deviceDataWrapper {
@@ -315,7 +320,7 @@ button:not(:first-child) {
 .switchElement {
   position: relative;
   display: inline-block;
-  height: 25px;
+  height: 1.25rem;
   color: var(--main-white-color);
   background-color: var(--main-black-color);
   border: 1px solid var(--main-black-color);
@@ -356,18 +361,19 @@ button:not(:first-child) {
   font-size: 1.25rem;
 }
 
-/*.sendButton {*/
-/*  cursor: pointer;*/
-/*  margin-top: 9px;*/
-/*  border: 0;*/
-/*  font-size: 1.25rem;*/
-/*  width: 100%;*/
-/*  display: flex;*/
-/*  align-items: center;*/
-/*  justify-content: space-between;*/
-/*  background-color: var(--main-blue-color);*/
-/*  color: var(--main-white-color);*/
-/*  padding: 13px 21px 13px 15px;*/
-/*  height: auto;*/
-/*}*/
+@media screen and (max-width: 500px) {
+  .blockWrapper {
+    padding: 30px 10px 0 20px;
+  }
+  .deviceImageWrapper {
+    width: 50px !important;
+  }
+  .deviceImageWrapper img {
+    width: inherit !important;
+  }
+  .deviceDataWrapper {
+    width: calc(100% - 50px);
+  }
+}
+
 </style>

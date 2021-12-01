@@ -105,7 +105,7 @@ export default {
 <style scoped>
 
 .blockWrapper {
-  height: calc(80vh - 225px);
+  height: 64vh;
   padding: 53px 53px 0;
 }
 
@@ -122,7 +122,6 @@ export default {
 
 .header {
   font-family: 'Raleway', sans-serif;
-  text-wrap: normal;
   font-size: 2.25rem;
   font-weight: 900;
   line-height: 1.25;
@@ -175,13 +174,6 @@ export default {
   width: 70%;
 }
 
-/*.addNewDeviceButton {*/
-/*  margin-top: 100px;*/
-/*}*/
-
-/*.addNewDeviceButton_reduced {*/
-/*  margin-top: 50px;*/
-/*}*/
 
 .removeButton {
   display: flex;
@@ -198,6 +190,19 @@ export default {
 
 .removeButton svg {
   transform: rotateZ(45deg);
+}
+
+@media screen and (max-width: 500px) {
+  .blockWrapper {
+    padding: 30px 30px 0;
+  }
+  .deviceImageWrapper {
+    display: none;
+  }
+  .deviceDataWrapper {
+    width: 100%;
+  }
+
 }
 
 </style>

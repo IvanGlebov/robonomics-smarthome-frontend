@@ -2,16 +2,14 @@
   <div :class="{deviceWrapper: device.recentlyAdded !== true, recentlyAddedDeviceWrapper: device.recentlyAdded === true}">
     <div class='deviceImage'>
       <g-image :src="device.imgSrc" alt="device image"/>
-<!--      <div>{{device.imgSrc}}</div>-->
-<!--      <g-image src="/devicePlaceholder.jpeg" alt="device image"/>-->
     </div>
     <div class='deviceStats'>
         <div class='deviceName'>{{ device.name }}</div>
       <div v-if="device.recentlyAdded !== true">
         <span class='splitter'></span>
-        <ValuesRow :values="device.values"/>
+        <ValuesRow :device-id="device.id" :values="device.values"/>
       </div>
-      <div>
+      <div v-if="device.isManageable">
         <g-link :to="`/device/` + device.id" class="link">Manage</g-link>
       </div>
     </div>
@@ -26,7 +24,7 @@ export default {
   components: {ValuesRow},
   props: {
     device: {
-      deviceId: String,
+      id: String,
       name: String,
       imgSrc: String,
       values: [
@@ -35,13 +33,8 @@ export default {
           value: Number,
           units: String
         }
-      ]
-    }
-
-  },
-  methods: {
-    testAlert () {
-      alert('test click')
+      ],
+      isManageable: Boolean
     }
   }
 }

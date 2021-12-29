@@ -6,8 +6,10 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = function (api) {
-  api.loadSource(actions => {
-    // Use the Data Store API here: https://gridsome.org/docs/data-store-api/
+  api.loadSource(async store => {
+    store.addMetadata('id_aquara', process.env.ID_AQUARA)
+    store.addMetadata('id_vacuum', process.env.ID_VACUUM)
+    store.addMetadata('id_lamp', process.env.ID_LAMP)
   })
     // Use the Pages API here: https://gridsome.org/docs/pages-api/
     api.createPages(({createPage}) => {

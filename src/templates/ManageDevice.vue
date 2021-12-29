@@ -255,7 +255,7 @@ export default {
   display: flex;
   height: 100%;
   overflow-y: auto;
-  overflow-x: clip;
+  /*overflow-x: clip;*/
   padding-top: 30px;
   padding-right: 10px;
 }
@@ -320,7 +320,7 @@ button:not(:first-child) {
 .switchElement {
   position: relative;
   display: inline-block;
-  height: 1.25rem;
+  height: 1.35rem;
   color: var(--main-white-color);
   background-color: var(--main-black-color);
   border: 1px solid var(--main-black-color);
@@ -352,13 +352,24 @@ button:not(:first-child) {
   margin-top: 58px;
 }
 
+.inputWrapper {
+  width: 100%;
+}
+
 .inputWrapper input {
   border: 1px solid var(--main-black-color);
   border-radius: 0;
   margin-top: 15px;
-  width: calc(100% - 30px);
+  width: calc(100%);
   padding: 10px 14px 14px 14px;
   font-size: 1.25rem;
+}
+
+.inputsWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
 }
 
 @media screen and (max-width: 500px) {

@@ -1,13 +1,14 @@
 <template>
   <div class='rowDataWrapper'>
-    <div class="rowValuesWrapper">
+    <div v-if="values.length > 0" class="rowValuesWrapper">
       <div v-for="item in values" class='rowValueWrapper'>
         <div class='rowValueHeader'>{{ item.name }}</div>
         <div class='rowValue'>{{ item.value.toString() + item.units }}</div>
       </div>
     </div>
-    <div @click="testAlert" class="rowDataUpdateButton">
-      <svg xmlns="http://www.w3.org/2000/svg" width="37.32" height="31.51" viewBox="0 0 37.32 31.51">
+    <div v-if="values.length === 0">No stored values. Try to fetch them</div>
+    <div @click="fetchDevice" class="rowDataUpdateButton">
+      <svg :class="{'loading-animated': loading}" xmlns="http://www.w3.org/2000/svg" width="37.32" height="31.51" viewBox="0 0 37.32 31.51">
         <g id="Component_1_1" data-name="Component 1 – 1" transform="translate(1.215 1)">
           <g id="Group_24" data-name="Group 24" transform="translate(-70.96 -21)">
             <g id="Group_23" data-name="Group 23" transform="translate(-924.217 -496.533)">
@@ -36,15 +37,37 @@
 </template>
 
 <script>
+
+import {mapActions} from "vuex";
+
 export default {
   name: "ValuesRow",
   props: {
-    values: Array
+    values: Array,
+    deviceId: String,
+  },
+  data: () => {
+    return {
+      loading: false
+    }
   },
   methods: {
-    testAlert() {
-      alert('test click')
-    }
+    fetchDevice() {
+      this.$data.loading = true
+      let key = prompt('Enter sid phrase to get an actual device information.')
+      if(key !== null && key !== '') {
+        this.fetchRemoteDevice({deviceId: this.$props.deviceId, sidPhrase: key})
+        .then(() => this.loading = false)
+        .catch(() => {
+          alert('Check your input or device availability')
+          this.loading = false
+        })
+      } else {
+        alert("Sid phrase can't be empty")
+        this.loading = false
+      }
+    },
+    ...mapActions({fetchRemoteDevice: 'fetchDevice'})
   }
 }
 </script>

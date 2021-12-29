@@ -40,7 +40,7 @@
 
 <script>
 import DeviceCard from "../components/DeviceCard";
-import { mapGetters } from "vuex";
+import {mapActions, mapGetters, mapMutations} from "vuex";
 
 export default {
   components: {DeviceCard},
@@ -63,13 +63,22 @@ export default {
   },
   mounted() {
     this.devices = this.getDevices
-    console.log(this.getRecentlyAddedDevices)
+
+
+    let devicesIDs = [this.$static.metadata.id_aquara, this.$static.metadata.id_vacuum, this.$static.metadata.id_lamp]
+    if(this.devices[0].id !== this.$static.metadata.id_aquara) {
+      this.setNewDeviceId({deviceId: 1, deviceData: {id: devicesIDs[0]}})
+      this.setNewDeviceId({deviceId: 2, deviceData: {id: devicesIDs[1]}})
+      this.setNewDeviceId({deviceId: 3, deviceData: {id: devicesIDs[2]}})
+      this.devices = this.getDevices
+    }
   },
   methods: {
     goToAddDevice() {
       this.$router.push('/addDevice')
-    }
-  }
+    },
+    ...mapActions(['setNewDeviceId'])
+  },
 };
 </script>
 
@@ -157,3 +166,13 @@ export default {
 }
 
 </style>
+
+<static-query>
+  query {
+    metadata {
+      id_aquara,
+      id_vacuum,
+      id_lamp
+    }
+  }
+</static-query>

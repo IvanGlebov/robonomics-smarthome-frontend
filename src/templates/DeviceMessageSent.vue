@@ -78,14 +78,15 @@
                 </svg>
               </div>
               <div>
-                <g-link class="extrinsic">View extrinsic</g-link>
+                <g-link :to="`/device/${device.id}`" class="extrinsic">View extrinsic</g-link>
               </div>
-              <Input placeholder="Your message" />
-              <Input placeholder="Enter keyword" />
+              <Input placeholder="Your message" v-model="messageValue" />
+              <Input placeholder="Enter keyword" v-model="sidPhrase_1" />
               <Button
                 variant="next"
                 placeholder="Send message"
-                @click="testAlert"
+                :loading="loading"
+                @click="sendMessage"
               />
             </div>
             <div class="controlDeviceWrapper">
@@ -115,11 +116,11 @@
                 {{ retrieveData }}
               </div>
               <div class="decodeMessageWrapper">
-                <Input placeholder="Enter your key" :on-chang="onInputChange" />
+                <Input placeholder="Enter your key" v-model="sidPhrase_2" />
                 <Button
                   variant="download"
                   placeholder="Get new decoded data"
-                  @click="testAlert"
+                  @click="fetchDevice"
                 />
               </div>
             </div>
@@ -131,7 +132,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import Table from "../components/Table";
 import Button from "../components/Button";
 import Input from "../components/Input";
@@ -147,35 +148,58 @@ export default {
       device: {},
       message: "",
       tableMode: true,
-      retrieveData: [
-        { name: "Agent", value: "lightbulb_on" },
-        { name: "Parameter", value: "" },
-      ],
+      retrieveData: [],
+      sidPhrase_1: '',
+      sidPhrase_2: '',
+      loading: false,
+      messageValue: ''
     };
   },
   computed: {
     ...mapGetters(["getDeviceById"]),
   },
   mounted() {
-    this.device = this.getDeviceById(this.$route.params.deviceId)[0];
-    this.message = this.$route.params.messageText;
+    this.device = this.getDeviceById(this.$route.params.deviceId)[0]
+    if(this.device !== undefined)
+      this.retrieveData = this.device.values
+    else
+      this.$router.push('/')
+    this.message = this.$route.fullPath.split('/')[4]
   },
   methods: {
-    testAlert() {
-      alert(`test alert`);
+    sendMessage() {
+      this.$data.loading = true
+      if ((this.$data.messageValue === '') || (this.$data.sidPhrase_1 === '')){
+        alert('Value or sid phrase is emphy ')
+      }
+      this.sendMessageToDevice({
+        deviceId: this.device.id,
+        sidPhrase: this.$data.sidPhrase_1,
+        value: this.$data.messageValue,
+        redirectMethod: this.$router
+      })
+      this.$data.loading = false
     },
+    fetchDevice() {
+      if(this.sidPhrase_2 !== null && this.sidPhrase_2 !== '') {
+        this.fetchRemoteDevice({deviceId: this.device.id, sidPhrase: this.sidPhrase_2, showNotification: true})
+        // setTimeout(() => {
+        //   this.sidPhrase_2 = ''
+        // })
+      } else {
+        alert("Sid phrase can't be empty")
+      }
+    },
+
+    ...mapActions({sendMessageToDevice: 'sendDeviceToMessage', fetchRemoteDevice: 'fetchDevice'}),
     goBack() {
-      this.$router.push(`/device/${this.$route.params.deviceId[0]}`);
+      this.$router.push(`/device/${this.$route.fullPath.split('/')[2]}`);
     },
     setToTableMode() {
       this.tableMode = false;
     },
     setToJsonMode() {
       this.tableMode = true;
-    },
-    onInputChange(e) {
-      console.log("on input change");
-      console.log(e);
     },
   },
 };

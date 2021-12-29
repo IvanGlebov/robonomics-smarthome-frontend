@@ -11,12 +11,7 @@
 export default {
   name: "Table",
   props: {
-    rows: [
-      {
-        name: String,
-        value: String
-      }
-    ]
+    rows: Array
   }
 }
 </script>

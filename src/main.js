@@ -3,6 +3,8 @@
 
 import DefaultLayout from '~/layouts/Default.vue'
 import Vuex from 'vuex'
+import axios from "axios";
+
 export default function (Vue, { router, head, isClient, appOptions }) {
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
@@ -14,85 +16,88 @@ export default function (Vue, { router, head, isClient, appOptions }) {
           id: '1',
           name: 'Aquara temperature & humidity sensor',
           values: [
-            {
-              name: 'Temperature',
-              value: '23.4',
-              units: '°C'
-            },
-            {
-              name: 'Humidity',
-              value: '30',
-              units: '%'
-            },
-            {
-              name: 'PM2.5',
-              value: '35',
-              units: ''
-            },
-            {
-              name: 'Air pressure',
-              value: '745.3',
-              units: 'mmHg'
-            }
+            // {
+            //   name: 'Temperature',
+            //   value: '23.4',
+            //   units: '°C'
+            // },
+            // {
+            //   name: 'Humidity',
+            //   value: '30',
+            //   units: '%'
+            // },
+            // {
+            //   name: 'PM2.5',
+            //   value: '35',
+            //   units: ''
+            // },
+            // {
+            //   name: 'Air pressure',
+            //   value: '745.3',
+            //   units: 'mmHg'
+            // }
           ],
           recentlyAdded: false,
-          imgSrc: "/devicePlaceholder.jpeg"
+          imgSrc: "/devicePlaceholder.jpeg",
+          isManageable: false
         },
         {
           id: '2',
-          name: 'Aquara temperature & humidity sensor 2',
+          name: 'Robot Vacuum',
           values: [
-            {
-              name: 'Temperature',
-              value: '23.4',
-              units: '°C'
-            },
-            {
-              name: 'Humidity',
-              value: '30',
-              units: '%'
-            },
-            {
-              name: 'PM2.5',
-              value: '35',
-              units: ''
-            },
-            {
-              name: 'Air pressure',
-              value: '745.3',
-              units: 'mmHg'
-            }
+            // {
+            //   name: 'Temperature',
+            //   value: '23.4',
+            //   units: '°C'
+            // },
+            // {
+            //   name: 'Humidity',
+            //   value: '30',
+            //   units: '%'
+            // },
+            // {
+            //   name: 'PM2.5',
+            //   value: '35',
+            //   units: ''
+            // },
+            // {
+            //   name: 'Air pressure',
+            //   value: '745.3',
+            //   units: 'mmHg'
+            // }
           ],
           recentlyAdded: false,
-          imgSrc: '/devicePlaceholder.jpeg'
+          imgSrc: '/devicePlaceholder.jpeg',
+          isManageable: false
         },
         {
           id: '3',
-          name: 'Aquara temperature & humidity sensor 3',
+          name: 'Lightbulb',
           values: [
-            {
-              name: 'Temperature',
-              value: '23.4',
-              units: '°C'
-            },
-            {
-              name: 'Humidity',
-              value: '30',
-              units: '%'
-            },
-            {
-              name: 'PM2.5',
-              value: '35',
-              units: ''
-            },
-            {
-              name: 'Air pressure',
-              value: '745.3',
-              units: 'mmHg'
-            }
+            // {
+            //   name: 'Temperature',
+            //   value: '23.4',
+            //   units: '°C'
+            // },
+            // {
+            //   name: 'Humidity',
+            //   value: '30',
+            //   units: '%'
+            // },
+            // {
+            //   name: 'PM2.5',
+            //   value: '35',
+            //   units: ''
+            // },
+            // {
+            //   name: 'Air pressure',
+            //   value: '745.3',
+            //   units: 'mmHg'
+            // }
           ],
           recentlyAdded: false,
-          imgSrc: '/devicePlaceholder.jpeg'
+          imgSrc: '/devicePlaceholder.jpeg',
+          isManageable: false
         }
       ]
     },
@@ -109,6 +114,26 @@ export default function (Vue, { router, head, isClient, appOptions }) {
             device.recentlyAdded = false
           }
         })
+      },
+      setDeviceId (state, {deviceId, deviceData}) {
+        state.devices.map((device, id) => {
+          // ONLY FOR DEMO!
+          // TODO Remove after demo is completed
+          if (device.id.toString() === deviceId.toString())
+            device.id = deviceData.id
+          return device
+        })
+      },
+      setDeviceData (state, {deviceId, updateData}) {
+        state.devices.map((device) => {
+          if (device.id.toString() === deviceId.toString()) {
+            device.values = updateData.values
+            device.name = updateData.name
+            device.isManageable = updateData.isManageable
+            device.imgSrc = updateData.imgSrc
+          }
+          return device
+        })
       }
     },
     getters: {
@@ -122,5 +147,49 @@ export default function (Vue, { router, head, isClient, appOptions }) {
         return state.devices.filter(v => v.recentlyAdded === true)
       }
     },
+    actions: {
+      setNewDeviceId({commit}, deviceToUpdate) {
+        commit("setDeviceId", deviceToUpdate)
+      },
+      fetchDevice({commit, store}, {deviceId, sidPhrase, showNotification}) {
+        return new Promise((resolve, reject) => {
+          axios.get(`http://localhost:8000/fetchDevice/${deviceId}?decryptKey=${sidPhrase}`)
+              .then((res) => {
+                if (res.status === 200) {
+                  if (res.data.code === 200) {
+                    commit('setDeviceData', {deviceId: deviceId, updateData: JSON.parse(res.data.message)})
+                    resolve(res)
+                    if(showNotification)
+                      alert('Device fetched successfully')
+                  } else {
+                    alert(`Error with status code ${res.data.code} \nMessage: ${res.data.message}`)
+                    reject(res)
+                  }
+                } else {
+                  reject(res)
+                  alert('Error while fetching data')
+                }
+              })
+        })
+      },
+      sendDeviceToMessage({commit, store}, {deviceId, sidPhrase, value}) {
+        return new Promise((resolve, reject) => {
+          axios.get(`http://localhost:8000/updateDevice/${deviceId}?decryptKey=${sidPhrase}&value=${value}`)
+              .then((res) => {
+                if (res.status === 200){
+                  if (res.data.code === 200) {
+                    resolve(res)
+                  } else {
+                    alert(`Error while updating device. \nStatus code ${res.data.code} \nMessage: ${res.data.message}`)
+                    reject(res)
+                  }
+                } else {
+                  alert("Error while updating device")
+                  reject(res)
+                }
+              })
+        })
+      }
+    }
   })
 }

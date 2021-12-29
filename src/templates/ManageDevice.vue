@@ -43,7 +43,7 @@
         </div>
         <div class="deviceCardWrapper">
           <div class="deviceImageWrapper">
-            <g-image alt="device img" :src="device.imgSrc" />
+            <g-image alt="No device image" :src="device.imgSrc" />
           </div>
           <div class="deviceDataWrapper">
             <div class="buttonsContainer">
@@ -61,11 +61,11 @@
               </button>
             </div>
             <div class="simpleModeWrapper" v-if="tableMode">
-              <ValuesRow :values="device.values" />
+              <ValuesRow :device-id="device.id" :values="device.values" />
             </div>
             <div class="tableModeWrapper" v-if="!tableMode">
               <Table :rows="device.values" />
-              <div @click="testAlert" class="rowDataUpdateButton">
+              <div @click="fetchDevice" class="rowDataUpdateButton">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="37.32"
@@ -153,11 +153,15 @@
               <div class="buttonsContainer">
                 <div class="switchElement">Control your device</div>
               </div>
-              <Input v-model="message" placeholder="Your message" />
-              <Input v-model="keyword" placeholder="Enter keyword" />
+              <div class="inputsWrapper">
+<!--                <Input v-model="keyword" placeholder="Enter key" />-->
+                <Input v-model="messageValue" placeholder="Enter value" />
+              </div>
+              <Input v-model="sidPhrase" placeholder="Enter sid phrase" />
               <Button
                 variant="next"
                 placeholder="Send message"
+                :loading="loading"
                 @click="sendMessage"
               />
             </div>
@@ -168,7 +172,7 @@
   </Layout>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import ValuesRow from "../components/ValuesRow";
 import Table from "../components/Table";
 import Button from "../components/Button";
@@ -185,19 +189,30 @@ export default {
       deviceName: "Aquara temperature & humidity sensor",
       tableMode: true,
       device: {},
-      message: "",
+      messageValue: "",
       keyword: "",
-    };
+      sidPhrase: "",
+      loading: false
+    }
   },
   computed: {
     ...mapGetters(["getDeviceById"]),
   },
   mounted() {
     this.device = this.getDeviceById(this.$route.params.deviceId)[0];
+    if (this.device === undefined) {
+      this.$router.push('/')
+    }
+
   },
   methods: {
-    testAlert() {
-      alert("test message");
+    fetchDevice() {
+      let key = prompt('Enter sid phrase to get an actual device information.')
+      if(key !== null && key !== '') {
+        this.fetchRemoteDevice({deviceId: this.$props.device.id, sidPhrase: key})
+      } else {
+        alert("Sid phrase can't be empty")
+      }
     },
     setSimpleMode() {
       this.tableMode = true;
@@ -209,13 +224,31 @@ export default {
       this.$router.push("/");
     },
     sendMessage() {
-      alert(
-        `Received data. message: ${this.message}, keyword: ${this.keyword}`
-      );
-      this.$router.push(
-        `/device/${this.$route.params.deviceId}/messageSent/${this.message}`
-      );
+      this.$data.loading = true
+      if ((this.$data.messageValue === '') || (this.$data.sidPhrase === '')){
+        alert('Value or sid phrase is emphy ')
+        this.$data.loading = false
+      }
+      this.sendMessageToDevice({
+        deviceId: this.device.id,
+        sidPhrase: this.$data.sidPhrase,
+        value: this.$data.messageValue,
+        // redirectMethod: this.$router
+      })
+      .then((res) => {
+        if(res.status === 200) {
+          this.$data.loading = false
+          this.$router.push(`/device/${this.device.id}/messageSent/${this.$data.messageValue}`)
+        } else {
+          this.$data.loading = false
+          console.log('Error while sending data to device')
+        }
+      })
+      .catch(() => {
+
+      })
     },
+    ...mapActions({sendMessageToDevice: 'sendDeviceToMessage', fetchRemoteDevice: 'fetchDevice'})
   },
 };
 </script>

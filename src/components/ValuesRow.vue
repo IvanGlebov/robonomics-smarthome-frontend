@@ -96,4 +96,16 @@ export default {
   cursor: pointer;
 }
 
+.loading-animated {
+  animation-duration: 3s;
+  animation-name: roll;
+  animation-iteration-count: infinite;
+}
+
+@keyframes roll {
+  from {
+    transform: rotate(180deg);
+  }
+}
+
 </style>

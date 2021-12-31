@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="$emit('click')" :class="{sendButton: colorScheme !== 'outlined', sendButtonOutlined: colorScheme === 'outlined'}">
-      <div v-if="order !== 'reverse'">{{ placeholder }}</div>
+      <div v-if="order !== 'reverse'"><slot/></div>
       <svg v-if="variant === 'next' && !loading" xmlns="http://www.w3.org/2000/svg" width="33.712" height="25.54" viewBox="0 0 33.712 25.54">
         <g id="Group_9" data-name="Group 9" transform="translate(1 1.414)">
           <path id="Path_9" data-name="Path 9" d="M181.561,1129.81H150" transform="translate(-150 -1118.501)"
@@ -54,7 +54,7 @@
           </g>
         </g>
       </svg>
-      <div v-if="order === 'reverse'">{{ placeholder }}</div>
+      <div v-if="order === 'reverse'"><slot/></div>
     </button>
   </div>
 </template>
@@ -64,7 +64,6 @@ export default {
   name: "Button",
   props: {
     variant: String,
-    placeholder: String,
     order: String,
     colorScheme: String,
     loading: Boolean

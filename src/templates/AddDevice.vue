@@ -34,7 +34,8 @@
           </div>
           <Input v-model="parameter" placeholder="Some parameter ?"/>
           <Button :class="{addNewDeviceButton: filePath === '', addNewDeviceButton_reduced: filePath !== ''}"
-                  variant="add" placeholder="Add new device" @click="addDevice"/>
+                  variant="add" @click="addDevice"
+          >Add new device</Button>
         </div>
       </div>
     </div>

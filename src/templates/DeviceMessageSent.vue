@@ -81,13 +81,12 @@
                 <g-link :to="`/device/${device.id}`" class="extrinsic">View extrinsic</g-link>
               </div>
               <Input placeholder="Your message" v-model="messageValue" />
-              <Input placeholder="Enter keyword" v-model="sidPhrase_1" />
+              <Input type="password" placeholder="Enter keyword" v-model="sidPhrase_1" />
               <Button
                 variant="next"
-                placeholder="Send message"
                 :loading="loading"
                 @click="sendMessage"
-              />
+              >Send message</Button>
             </div>
             <div class="controlDeviceWrapper">
               <div class="buttonsContainer">
@@ -116,12 +115,11 @@
                 {{ retrieveData }}
               </div>
               <div class="decodeMessageWrapper">
-                <Input placeholder="Enter your key" v-model="sidPhrase_2" />
+                <Input type="password" placeholder="Enter your key" v-model="sidPhrase_2" />
                 <Button
                   variant="download"
-                  placeholder="Get new decoded data"
                   @click="fetchDevice"
-                />
+                >Get new decoded data</Button>
               </div>
             </div>
           </div>

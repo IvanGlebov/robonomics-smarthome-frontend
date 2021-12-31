@@ -7,7 +7,7 @@
       </div>
     </div>
     <div v-if="values.length === 0">No stored values. Try to fetch them</div>
-    <div @click="fetchDevice" class="rowDataUpdateButton">
+    <div @click="toggleModal" class="rowDataUpdateButton">
       <svg :class="{'loading-animated': loading}" xmlns="http://www.w3.org/2000/svg" width="37.32" height="31.51" viewBox="0 0 37.32 31.51">
         <g id="Component_1_1" data-name="Component 1 – 1" transform="translate(1.215 1)">
           <g id="Group_24" data-name="Group 24" transform="translate(-70.96 -21)">
@@ -33,39 +33,64 @@
         </g>
       </svg>
     </div>
+    <Modal :show="modalShow">
+      <div>
+        <h3>Sid phrase is required to proceed</h3>
+        <Input type="password" v-model="sidPhrase" placeholder="Enter your sid phrase"/>
+        <div class="control-buttons">
+          <Button @click="toggleModal">Cancel</Button>
+          <Button @click="fetchDevice">Fetch data</Button>
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
 
-import {mapActions} from "vuex";
+import {mapActions} from "vuex"
+import Modal from "./Modal"
+import Input from "./Input";
+import Button from "./Button";
 
 export default {
   name: "ValuesRow",
+  components: {Button, Input, Modal},
   props: {
     values: Array,
     deviceId: String,
   },
   data: () => {
     return {
-      loading: false
+      loading: false,
+      modalShow: false,
+      sidPhrase: '',
     }
   },
   methods: {
     fetchDevice() {
       this.$data.loading = true
-      let key = prompt('Enter sid phrase to get an actual device information.')
-      if(key !== null && key !== '') {
-        this.fetchRemoteDevice({deviceId: this.$props.deviceId, sidPhrase: key})
-        .then(() => this.loading = false)
-        .catch(() => {
-          alert('Check your input or device availability')
+      // let key = prompt('Enter sid phrase to get an actual device information.')
+      if(this.$data.sidPhrase !== null && this.$data.sidPhrase !== '') {
+        this.fetchRemoteDevice({deviceId: this.$props.deviceId, sidPhrase: this.$data.sidPhrase})
+        .then(() => {
           this.loading = false
+          this.toggleModal()
+        })
+        .catch(() => {
+          this.loading = false
+          this.toggleModal()
+          alert('Check your input or device availability')
         })
       } else {
+        this.toggleModal()
         alert("Sid phrase can't be empty")
         this.loading = false
       }
+    },
+    toggleModal() {
+      this.$data.modalShow = !this.$data.modalShow
+      this.$data.loading = false
     },
     ...mapActions({fetchRemoteDevice: 'fetchDevice'})
   }
@@ -123,6 +148,10 @@ export default {
   animation-duration: 3s;
   animation-name: roll;
   animation-iteration-count: infinite;
+}
+
+.control-buttons {
+  padding-top: 20px;
 }
 
 @keyframes roll {

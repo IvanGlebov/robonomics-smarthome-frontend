@@ -1,5 +1,15 @@
 <template>
   <Layout>
+    <Modal :show="modalShow">
+    <div>
+      <h3>Sid phrase is required to proceed</h3>
+      <Input type="password" v-model="sidPhrase" placeholder="Enter your sid phrase"/>
+      <div class="control-buttons">
+        <Button @click="toggleModal">Cancel</Button>
+        <Button @click="fetchDevice">Fetch data</Button>
+      </div>
+    </div>
+  </Modal>
     <div class="blockWrapper">
       <div class="contentWrapper">
         <div class="headerWrapper">
@@ -65,8 +75,9 @@
             </div>
             <div class="tableModeWrapper" v-if="!tableMode">
               <Table :rows="device.values" />
-              <div @click="fetchDevice" class="rowDataUpdateButton">
+              <div @click="toggleModal" class="rowDataUpdateButton">
                 <svg
+                    :class="{'loading-animated': loading_1}"
                   xmlns="http://www.w3.org/2000/svg"
                   width="37.32"
                   height="31.51"
@@ -154,20 +165,19 @@
                 <div class="switchElement">Control your device</div>
               </div>
               <div class="inputsWrapper">
-<!--                <Input v-model="keyword" placeholder="Enter key" />-->
                 <Input v-model="messageValue" placeholder="Enter value" />
               </div>
-              <Input v-model="sidPhrase" placeholder="Enter sid phrase" />
+              <Input type="password" v-model="sidPhrase" placeholder="Enter sid phrase" />
               <Button
                 variant="next"
-                placeholder="Send message"
-                :loading="loading"
+                :loading="loading_2"
                 @click="sendMessage"
-              />
+              >Send message</Button>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </Layout>
 </template>
@@ -177,13 +187,13 @@ import ValuesRow from "../components/ValuesRow";
 import Table from "../components/Table";
 import Button from "../components/Button";
 import Input from "../components/Input";
-
+import Modal from "../components/Modal";
 export default {
   name: "ManageDevice",
   metaInfo: {
     title: "Manage device",
   },
-  components: { Input, Table, ValuesRow, Button },
+  components: { Input, Table, ValuesRow, Button, Modal },
   data: () => {
     return {
       deviceName: "Aquara temperature & humidity sensor",
@@ -192,7 +202,9 @@ export default {
       messageValue: "",
       keyword: "",
       sidPhrase: "",
-      loading: false
+      loading_1: false,
+      loading_2: false,
+      modalShow: false,
     }
   },
   computed: {
@@ -203,13 +215,25 @@ export default {
     if (this.device === undefined) {
       this.$router.push('/')
     }
-
   },
   methods: {
     fetchDevice() {
-      let key = prompt('Enter sid phrase to get an actual device information.')
-      if(key !== null && key !== '') {
-        this.fetchRemoteDevice({deviceId: this.$props.device.id, sidPhrase: key})
+      // let key = prompt('Enter sid phrase to get an actual device information.')
+      console.log('from modal')
+      console.log(this.$props)
+      this.loading_1 = true
+      if(this.$data.sidPhrase !== null && this.$data.sidPhrase !== '') {
+        this.fetchRemoteDevice({deviceId: this.$data.device.id, sidPhrase: this.$data.sidPhrase})
+        .then(() => {
+          this.loading_1 = false
+          this.toggleModal()
+        })
+        .catch(() => {
+          this.loading_1 = false
+          // this.toggleModal()
+          alert('Check your input or device availability')
+        })
+
       } else {
         alert("Sid phrase can't be empty")
       }
@@ -237,16 +261,19 @@ export default {
       })
       .then((res) => {
         if(res.status === 200) {
-          this.$data.loading = false
+          this.$data.loading_2 = false
           this.$router.push(`/device/${this.device.id}/messageSent/${this.$data.messageValue}`)
         } else {
-          this.$data.loading = false
+          this.$data.loading_2 = false
           console.log('Error while sending data to device')
         }
       })
       .catch(() => {
 
       })
+    },
+    toggleModal() {
+      this.$data.modalShow = !this.$data.modalShow
     },
     ...mapActions({sendMessageToDevice: 'sendDeviceToMessage', fetchRemoteDevice: 'fetchDevice'})
   },
@@ -405,6 +432,10 @@ button:not(:first-child) {
   gap: 20px;
 }
 
+.control-buttons {
+  padding-top: 20px;
+}
+
 @media screen and (max-width: 500px) {
   .blockWrapper {
     padding: 30px 10px 0 20px;
@@ -417,6 +448,18 @@ button:not(:first-child) {
   }
   .deviceDataWrapper {
     width: calc(100% - 50px);
+  }
+}
+
+.loading-animated {
+  animation-duration: 3s;
+  animation-name: roll;
+  animation-iteration-count: infinite;
+}
+
+@keyframes roll {
+  from {
+    transform: rotate(180deg);
   }
 }
 

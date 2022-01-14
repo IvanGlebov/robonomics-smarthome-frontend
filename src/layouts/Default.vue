@@ -22,6 +22,7 @@
   --main-grey-color: #797979;
   --secondary-grey-color: #696969;
   --main-green-color: #00CCAD;
+  --main-orange-color: #E9510E;
 }
 
 html {

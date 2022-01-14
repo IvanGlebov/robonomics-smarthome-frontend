@@ -1,5 +1,14 @@
 <template>
   <Layout>
+    <Modal height="350px" :show="modalShow">
+      <div>
+        <h2>Something has gone wrong</h2>
+        <div>Your device cannot be added by some reason. Please, check your internet connection and try again later.</div>
+        <h3>Error message</h3>
+        <div>{{modalMessage}}</div>
+        <Button color-scheme="regular" @click="toggleModal">Close</Button>
+      </div>
+    </Modal>
     <div class="blockWrapper">
       <div class="contentWrapper">
         <div class="headerWrapper">
@@ -45,8 +54,10 @@
 <script>
 import Button from "../components/Button";
 import Input from "../components/Input";
+import Checkbox from "../components/Checkbox";
 import FileInput from "../components/FileInput";
-import { mapMutations } from "vuex";
+import Modal from "../components/Modal";
+import {mapActions, mapMutations} from "vuex";
 
 export default {
   name: "AddDevice",
@@ -65,6 +76,7 @@ export default {
     })
   },
   components: {FileInput, Button, Input},
+  components: {FileInput, Button, Input, Modal, Checkbox},
   methods: {
     goBack () {
       this.$router.push('/')

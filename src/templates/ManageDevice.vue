@@ -5,8 +5,8 @@
       <h3>Sid phrase is required to proceed</h3>
       <Input type="password" v-model="sidPhrase" placeholder="Enter your sid phrase"/>
       <div class="control-buttons">
-        <Button @click="toggleModal">Cancel</Button>
-        <Button @click="fetchDevice">Fetch data</Button>
+        <Button color-scheme="regular" @click="toggleModal">Cancel</Button>
+        <Button color-scheme="regular" @click="fetchDevice">Fetch data</Button>
       </div>
     </div>
   </Modal>
@@ -169,6 +169,7 @@
               </div>
               <Input type="password" v-model="sidPhrase" placeholder="Enter sid phrase" />
               <Button
+                color-scheme="regular"
                 variant="next"
                 :loading="loading_2"
                 @click="sendMessage"

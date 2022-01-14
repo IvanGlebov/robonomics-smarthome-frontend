@@ -56,8 +56,12 @@ export default {
   data: () => {
     return ({
       deviceName: '',
+      deviceId: '',
       filePath: '',
-      parameter: ''
+      parameters: [{key: '', units: ''}],
+      modalShow: false,
+      modalMessage: '',
+      isManageable: false
     })
   },
   components: {FileInput, Button, Input},

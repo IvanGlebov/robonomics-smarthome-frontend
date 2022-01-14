@@ -276,7 +276,7 @@ export default {
     toggleModal() {
       this.$data.modalShow = !this.$data.modalShow
     },
-    ...mapActions({sendMessageToDevice: 'sendDeviceToMessage', fetchRemoteDevice: 'fetchDevice'})
+    ...mapActions({sendMessageToDevice: 'sendMessageToDevice', fetchRemoteDevice: 'fetchDevice'})
   },
 };
 </script>

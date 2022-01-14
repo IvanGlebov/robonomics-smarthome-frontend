@@ -191,7 +191,7 @@ export default {
       }
     },
 
-    ...mapActions({sendMessageToDevice: 'sendDeviceToMessage', fetchRemoteDevice: 'fetchDevice'}),
+    ...mapActions({sendMessageToDevice: 'sendMessageToDevice', fetchRemoteDevice: 'fetchDevice'}),
     goBack() {
       this.$router.push(`/device/${this.$route.fullPath.split('/')[2]}`);
     },

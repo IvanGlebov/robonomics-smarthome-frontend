@@ -103,12 +103,9 @@ export default function (Vue, { router, head, isClient, appOptions }) {
     },
     mutations: {
       addDevice (state, device) {
-        console.log('pushing device into state')
-        console.log(device)
         state.devices.push(device)
-        console.log('device added')
       },
-      deRecentDevice (state, id) {
+      derecentDevice (state, id) {
         state.devices.map(device => {
           if(device.id.toString() === id.toString()){
             device.recentlyAdded = false
@@ -172,7 +169,7 @@ export default function (Vue, { router, head, isClient, appOptions }) {
               })
         })
       },
-      sendDeviceToMessage({commit, store}, {deviceId, sidPhrase, value}) {
+      sendMessageToDevice({commit, store}, {deviceId, sidPhrase, value}) {
         return new Promise((resolve, reject) => {
           axios.get(`http://localhost:8000/updateDevice/${deviceId}?decryptKey=${sidPhrase}&value=${value}`)
               .then((res) => {
@@ -187,6 +184,17 @@ export default function (Vue, { router, head, isClient, appOptions }) {
                   alert("Error while updating device")
                   reject(res)
                 }
+              })
+        })
+      },
+      addNewDevice({commit, store}, device) {
+        return new Promise((resolve, reject) => {
+          axios.post(`http://localhost:8000/addNewDevice`, {...device})
+              .then((res) => {
+                resolve({res, device})
+              })
+              .catch((error) => {
+                reject({error, device})
               })
         })
       }

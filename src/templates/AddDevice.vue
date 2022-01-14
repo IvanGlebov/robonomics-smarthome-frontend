@@ -242,7 +242,25 @@ export default {
 }
 
 .removeButton svg {
-  transform: rotateZ(45deg);
+  transform: rotate(45deg);
+}
+
+.inputsWrapper {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+.inputsWrapper > div.inputWrapper {
+  width: 100%;
+}
+
+.inputsWrapper > div {
+  width: 100%;
+}
+
+.modal-message > .modal-content {
+  height: 400px;
 }
 
 @media screen and (max-width: 500px) {

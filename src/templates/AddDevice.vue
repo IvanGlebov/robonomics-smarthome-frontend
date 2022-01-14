@@ -75,16 +75,24 @@ export default {
       isManageable: false
     })
   },
-  components: {FileInput, Button, Input},
   components: {FileInput, Button, Input, Modal, Checkbox},
   methods: {
-    goBack () {
+    onCheckboxChange(args) {
+      this.$data.isManageable = args
+    },
+    toggleModal(message) {
+      this.$data.modalShow = !this.$data.modalShow
+      if (message) {
+        this.$data.modalMessage = message
+      }
+    },
+    goBack() {
       this.$router.push('/')
     },
-    logFile (file) {
+    logFile(file) {
       this.filePath = URL.createObjectURL(file)
     },
-    removeFile () {
+    removeFile() {
       this.filePath = ''
     },
     addDevice () {

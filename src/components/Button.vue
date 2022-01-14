@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="$emit('click')" :class="{sendButton: colorScheme !== 'outlined', sendButtonOutlined: colorScheme === 'outlined'}">
+    <button @click="$emit('click')" :class="{sendButton: colorScheme === 'regular', sendButtonOutlined: colorScheme === 'outlined', sendButtonReject: colorScheme === 'reject', disabled: disabled === true}">
       <div v-if="order !== 'reverse'"><slot/></div>
       <svg v-if="variant === 'next' && !loading" xmlns="http://www.w3.org/2000/svg" width="33.712" height="25.54" viewBox="0 0 33.712 25.54">
         <g id="Group_9" data-name="Group 9" transform="translate(1 1.414)">
@@ -28,6 +28,12 @@
         <g id="Component_2_2" data-name="Component 2 – 2" transform="translate(1 1)">
           <path id="Path_2" data-name="Path 2" d="M218,531.323v20.27" transform="translate(-207.865 -531.323)" fill="none" stroke="#1547d0" stroke-linecap="round" stroke-width="2"/>
           <path id="Path_3" data-name="Path 3" d="M0,0V20.27" transform="translate(20.27 10.135) rotate(90)" fill="none" stroke="#1547d0" stroke-linecap="round" stroke-width="2"/>
+        </g>
+      </svg>
+      <svg v-if="variant === 'reject' && colorScheme !== 'outlined' && !loading" class="reject-icon" xmlns="http://www.w3.org/2000/svg" width="22.27" height="22.27" viewBox="0 0 22.27 22.27">
+        <g id="Component_2_2" data-name="Component 2 – 2" transform="translate(1 1)">
+          <path id="Path_2" data-name="Path 2" d="M218,531.323v20.27" transform="translate(-207.865 -531.323)" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="2"/>
+          <path id="Path_3" data-name="Path 3" d="M0,0V20.27" transform="translate(20.27 10.135) rotate(90)" fill="none" stroke="#ffffff" stroke-linecap="round" stroke-width="2"/>
         </g>
       </svg>
       <svg class="loading-animated" v-if="loading" xmlns="http://www.w3.org/2000/svg" width="37.32" height="31.51" viewBox="0 0 37.32 31.51">
@@ -66,7 +72,8 @@ export default {
     variant: String,
     order: String,
     colorScheme: String,
-    loading: Boolean
+    loading: Boolean,
+    disabled: Boolean
   }
 }
 </script>
@@ -105,11 +112,34 @@ export default {
   padding: 10px 21px 13px 15px;
   height: auto;
 }
+.sendButtonReject {
+  cursor: pointer;
+  margin-top: 9px;
+  border: 0;
+  font-size: 1.25rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--main-orange-color);
+  color: var(--main-white-color);
+  padding: 10px 21px 13px 15px;
+  height: auto;
+}
+
+.disabled {
+  opacity: .3;
+  cursor: initial;
+}
 
 .loading-animated {
   animation-duration: 3s;
   animation-name: roll;
   animation-iteration-count: infinite;
+}
+
+.reject-icon {
+  transform: rotate(45deg);
 }
 
 @keyframes roll {

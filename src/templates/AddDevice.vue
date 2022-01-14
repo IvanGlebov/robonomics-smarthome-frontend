@@ -95,35 +95,55 @@ export default {
     removeFile() {
       this.filePath = ''
     },
-    addDevice () {
-      console.log('adding new device')
-      console.log(`Device name: ${this.deviceName}`)
-      console.log(`Device image url: ${this.filePath}`)
-      console.log(`Device some param: ${this.parameter}`)
-      let device = {
-        id: 4,
-        name: this.deviceName,
-        imgPath: this.filePath,
-        param: this.parameter,
-        recentlyAdded: true
+    addDevice() {
+      let newDevice = {
+        deviceId: this.$data.deviceId,
+        deviceName: this.$data.deviceName,
+        deviceParams: this.$data.parameters,
+        isManageable: this.$data.isManageable
       }
-      //TODO server request to add new device
-      // here
       // If response if OK -> this.addNewDevice
       // -> redirect to main and setTimeout for 5-10 seconds to fetch
       // information about device state and make it not 'recentlyAdded'
-      this.addNewDevice(device)
-      this.$router.push('/')
-      setTimeout(() => {
-        this.derecentDevice('4')
-      }, 10000)
+      this.addNewDeviceToServer(newDevice)
+          .then(({res, device}) => {
+            if(res.data.code === 200) {
+              let newDevice = {
+                id: device.deviceId,
+                name: device.deviceName,
+                values: [],
+                recentlyAdded: true,
+                isManageable: this.$data.isManageable,
+                imgSrc: device.imgSrc || '/devicePlaceholder.jpeg'
+              }
+              this.addNewDevice(newDevice)
+              this.$router.push('/')
+              setTimeout(() => {
+                this.derecentDevice(newDevice.id)
+              }, 7000)
+            } else {
+              this.toggleModal(`Error code ${res.data.code}`)
+            }
+          })
+      .catch(({error}) => {
+        this.toggleModal(error)
+      })
+    },
+    addEmptyParameter() {
+      this.$data.parameters.push({key: '', units: ''})
+    },
+    removeLastParameter() {
+      if(this.$data.parameters.length > 1)
+        this.$data.parameters.pop()
     },
     ...mapMutations({
       addNewDevice: 'addDevice',
-      derecentDevice: 'deRecentDevice'
+      derecentDevice: 'derecentDevice'
+    }),
+    ...mapActions({
+      addNewDeviceToServer: 'addNewDevice'
     })
-  },
-
+  }
 }
 </script>
 

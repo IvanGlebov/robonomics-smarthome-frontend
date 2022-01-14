@@ -42,8 +42,15 @@
             </button>
             <g-image class="deviceImage" :src="filePath"/>
           </div>
-          <Input v-model="parameter" placeholder="Some parameter ?"/>
-          <Button :class="{addNewDeviceButton: filePath === '', addNewDeviceButton_reduced: filePath !== ''}"
+          <Checkbox @change="onCheckboxChange">Leave a mark here if your device is manageable</Checkbox>
+          <div v-for="parameter in parameters" class="inputsWrapper">
+            <Input v-model="parameter.key" placeholder="Parameter name"/>
+            <Input v-model="parameter.units" placeholder="Units"/>
+          <div class="inputsWrapper">
+            <Button color-scheme="regular" variant="add" @click="addEmptyParameter">Add parameter</Button>
+            <Button color-scheme="reject" :disabled="parameters.length < 2" variant="reject" @click="removeLastParameter">Remove parameter</Button>
+          </div>
+          <Button color-scheme="regular" :class="{addNewDeviceButton: filePath === '', addNewDeviceButton_reduced: filePath !== ''}"
                   variant="add" @click="addDevice"
           >Add new device</Button>
         </div>

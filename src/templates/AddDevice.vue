@@ -30,6 +30,7 @@
         <div class="deviceImageWrapper"></div>
         <div class="deviceDataWrapper">
           <Input v-model="deviceName" placeholder="Name"/>
+          <Input v-model="deviceId" placeholder="Device ID"/>
           <FileInput v-if="filePath === ''" @input="logFile" title="Avatar (.jpg, .png < 1mb)"
                      placeholder="Choose a file"/>
           <div v-if="filePath !== ''" class="imageWrapper">

@@ -83,6 +83,7 @@
               <Input placeholder="Your message" v-model="messageValue" />
               <Input type="password" placeholder="Enter keyword" v-model="sidPhrase_1" />
               <Button
+                color-scheme="regular"
                 variant="next"
                 :loading="loading"
                 @click="sendMessage"
@@ -117,6 +118,7 @@
               <div class="decodeMessageWrapper">
                 <Input type="password" placeholder="Enter your key" v-model="sidPhrase_2" />
                 <Button
+                  color-scheme="regular"
                   variant="download"
                   @click="fetchDevice"
                 >Get new decoded data</Button>

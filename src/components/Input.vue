@@ -9,7 +9,6 @@ export default {
   name: "Input",
   props: {
     placeholder: String,
-    // onChange: Function,
     type: String
   }
 }
@@ -17,6 +16,7 @@ export default {
 
 <style scoped>
 .inputWrapper input {
+  font-family: "Roboto Mono", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
   border: 1px solid var(--main-black-color);
   border-radius: 0;
   margin-top: 15px;

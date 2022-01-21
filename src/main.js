@@ -124,10 +124,10 @@ export default function (Vue, { router, head, isClient, appOptions }) {
       setDeviceData (state, {deviceId, updateData}) {
         state.devices.map((device) => {
           if (device.id.toString() === deviceId.toString()) {
-            device.values = updateData.values
+            device.values = updateData.values || []
             device.name = updateData.name
-            device.isManageable = updateData.isManageable
-            device.imgSrc = updateData.imgSrc
+            device.isManageable = updateData?.isManageable || false
+            device.imgSrc = updateData?.imgSrc
           }
           return device
         })

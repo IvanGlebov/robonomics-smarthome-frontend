@@ -148,6 +148,31 @@ export default function (Vue, { router, head, isClient, appOptions }) {
       setNewDeviceId({commit}, deviceToUpdate) {
         commit("setDeviceId", deviceToUpdate)
       },
+      getDevices({commit}) {
+        return new Promise((resolve, reject) => {
+          axios.get('http://localhost:8000/devices')
+              .then((res) => {
+                if(res.status === 200) {
+                  if(res.data.code === 200) {
+                    let devices = res.data.message
+                    // console.log('setting devices')
+                    commit('setDevices', {devices})
+                    resolve(devices)
+                  } else {
+                    console.log('Internal server error')
+                    reject(res)
+                  }
+                } else {
+                  console.log('Http request error')
+                  reject(res)
+                }
+              })
+              .catch((error) => {
+                console.log('catch error')
+                reject(error)
+              })
+        })
+      },
       fetchDevice({commit, store}, {deviceId, sidPhrase, showNotification}) {
         return new Promise((resolve, reject) => {
           axios.get(`http://localhost:8000/fetchDevice/${deviceId}?decryptKey=${sidPhrase}`)

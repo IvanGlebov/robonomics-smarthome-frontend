@@ -46,6 +46,7 @@
           <div v-for="parameter in parameters" class="inputsWrapper">
             <Input v-model="parameter.key" placeholder="Parameter name"/>
             <Input v-model="parameter.units" placeholder="Units"/>
+          </div>
           <div class="inputsWrapper">
             <Button color-scheme="regular" variant="add" @click="addEmptyParameter">Add parameter</Button>
             <Button color-scheme="reject" :disabled="parameters.length < 2" variant="reject" @click="removeLastParameter">Remove parameter</Button>
@@ -56,7 +57,6 @@
         </div>
       </div>
     </div>
-      </div>
   </Layout>
 </template>
 

@@ -131,6 +131,19 @@ export default function (Vue, { router, head, isClient, appOptions }) {
           }
           return device
         })
+      },
+      setDevices (state, {devices}) {
+        let newDevices = []
+        JSON.parse(devices).map((device, index) => {
+          newDevices[index] = {
+            id: device.id,
+            name: device.name,
+            values: device.values !== undefined ? device.values : [],
+            isManageable: device.isManageable !== undefined ? device.isManageable : false,
+            imgSrc: device.imgSrc !== undefined ? device.imgSrc : ''
+          }
+        })
+        state.devices = newDevices
       }
     },
     getters: {

@@ -64,20 +64,27 @@ export default {
   mounted() {
     this.devices = this.getDevices
 
+    this.getDevicesList()
+        .then(() => {
+          this.devices = this.getDevices
+        }).catch((error) => {console.log('ERROR')})
 
-    let devicesIDs = [this.$static.metadata.id_aquara, this.$static.metadata.id_vacuum, this.$static.metadata.id_lamp]
-    if(this.devices[0].id !== this.$static.metadata.id_aquara) {
-      this.setNewDeviceId({deviceId: 1, deviceData: {id: devicesIDs[0]}})
-      this.setNewDeviceId({deviceId: 2, deviceData: {id: devicesIDs[1]}})
-      this.setNewDeviceId({deviceId: 3, deviceData: {id: devicesIDs[2]}})
-      this.devices = this.getDevices
-    }
+    // let devicesIDs = [this.$static.metadata.id_aquara, this.$static.metadata.id_vacuum, this.$static.metadata.id_lamp]
+    // if(this.devices[0].id !== this.$static.metadata.id_aquara) {
+    //   this.setNewDeviceId({deviceId: 1, deviceData: {id: devicesIDs[0]}})
+    //   this.setNewDeviceId({deviceId: 2, deviceData: {id: devicesIDs[1]}})
+    //   this.setNewDeviceId({deviceId: 3, deviceData: {id: devicesIDs[2]}})
+    //   this.devices = this.getDevices
+    // }
   },
   methods: {
     goToAddDevice() {
       this.$router.push('/addDevice')
     },
-    ...mapActions(['setNewDeviceId'])
+    ...mapActions({
+      setNewDeviceId: 'setNewDeviceId',
+      getDevicesList: 'getDevices'
+    })
   },
 };
 </script>

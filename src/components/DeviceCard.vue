@@ -81,7 +81,7 @@ export default {
         })
             .then(res => {
               if (res.status === 200) {
-                if (res.data.status === 200) {
+                if (res.data.code === 200) {
                   this.toggleModal()
                   this.$data.showUpdateButton = false
                 } else {

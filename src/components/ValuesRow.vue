@@ -36,7 +36,7 @@
     <Modal :show="modalShow">
       <div>
         <h3>Sid phrase is required to proceed</h3>
-        <Input type="password" v-model="sidPhrase" placeholder="Enter your sid phrase"/>
+        <Input type="password" v-model="seedPhrase" placeholder="Enter your sid phrase"/>
         <div class="control-buttons">
           <Button color-scheme="regular" @click="toggleModal">Cancel</Button>
           <Button color-scheme="regular" @click="fetchDevice">Fetch data</Button>
@@ -64,14 +64,14 @@ export default {
     return {
       loading: false,
       modalShow: false,
-      sidPhrase: '',
+      seedPhrase: '',
     }
   },
   methods: {
     fetchDevice() {
       this.$data.loading = true
       // let key = prompt('Enter sid phrase to get an actual device information.')
-      if(this.$data.sidPhrase !== null && this.$data.sidPhrase !== '') {
+      if(this.$data.seedPhrase !== null && this.$data.seedPhrase !== '') {
         this.fetchRemoteDevice({deviceId: this.$props.deviceId, sidPhrase: this.$data.sidPhrase})
         .then(() => {
           this.loading = false

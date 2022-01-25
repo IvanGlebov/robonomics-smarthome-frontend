@@ -1,12 +1,12 @@
 <template>
   <div class='rowDataWrapper'>
-    <div v-if="values.length > 0" class="rowValuesWrapper">
+    <div v-if="values !== undefined && values.length > 0" class="rowValuesWrapper">
       <div v-for="item in values" class='rowValueWrapper'>
         <div class='rowValueHeader'>{{ item.name }}</div>
         <div class='rowValue'>{{ item.value.toString() + item.units }}</div>
       </div>
     </div>
-    <div v-if="values.length === 0">No stored values. Try to fetch them</div>
+    <div v-if="values !== undefined && values.length === 0">No stored values. Try to fetch them</div>
     <div @click="toggleModal" class="rowDataUpdateButton">
       <svg :class="{'loading-animated': loading}" xmlns="http://www.w3.org/2000/svg" width="37.32" height="31.51" viewBox="0 0 37.32 31.51">
         <g id="Component_1_1" data-name="Component 1 – 1" transform="translate(1.215 1)">

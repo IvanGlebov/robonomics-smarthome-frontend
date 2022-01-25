@@ -42,7 +42,13 @@
             </button>
             <g-image class="deviceImage" :src="filePath"/>
           </div>
-          <Checkbox @change="onCheckboxChange">Leave a mark here if your device is manageable</Checkbox>
+          <Checkbox v-model="isManageable">Leave a mark here if your device is manageable</Checkbox>
+          <div v-if="isManageable">
+            <select v-model="deviceType" class="typeSelector">
+              <option value="vacuum">Vacuum</option>
+              <option value="lightbulb">Lightbulb</option>
+            </select>
+          </div>
           <div v-for="parameter in parameters" class="inputsWrapper">
             <Input v-model="parameter.key" placeholder="Parameter name"/>
             <Input v-model="parameter.units" placeholder="Units"/>
@@ -81,14 +87,12 @@ export default {
       parameters: [{key: '', units: ''}],
       modalShow: false,
       modalMessage: '',
-      isManageable: false
+      isManageable: false,
+      deviceType: ''
     })
   },
   components: {FileInput, Button, Input, Modal, Checkbox},
   methods: {
-    onCheckboxChange(args) {
-      this.$data.isManageable = args
-    },
     toggleModal(message) {
       this.$data.modalShow = !this.$data.modalShow
       if (message) {
@@ -109,7 +113,8 @@ export default {
         deviceId: this.$data.deviceId,
         deviceName: this.$data.deviceName,
         deviceParams: this.$data.parameters,
-        isManageable: this.$data.isManageable
+        isManageable: this.$data.isManageable,
+        type: this.$data.deviceType
       }
       // If response if OK -> this.addNewDevice
       // -> redirect to main and setTimeout for 5-10 seconds to fetch
@@ -123,7 +128,8 @@ export default {
                 values: [],
                 recentlyAdded: true,
                 isManageable: this.$data.isManageable,
-                imgSrc: device.imgSrc || '/devicePlaceholder.jpeg'
+                imgSrc: device.imgSrc || '/devicePlaceholder.jpeg',
+                type: this.$data.deviceType
               }
               this.addNewDevice(newDevice)
               this.$router.push('/')
@@ -244,6 +250,17 @@ export default {
 
 .removeButton svg {
   transform: rotate(45deg);
+}
+
+.typeSelector {
+  display: block;
+  margin-top: 15px;
+  padding: 14px;
+  border: 1px solid var(--main-black-color);
+  font-family: "Roboto Mono", Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+  font-size: 1.25rem;
+  color: var(--secondary-grey-color);
+  width: 100%;
 }
 
 .inputsWrapper {

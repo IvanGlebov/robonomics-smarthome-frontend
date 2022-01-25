@@ -72,7 +72,7 @@ export default {
       this.$data.loading = true
       // let key = prompt('Enter sid phrase to get an actual device information.')
       if(this.$data.seedPhrase !== null && this.$data.seedPhrase !== '') {
-        this.fetchRemoteDevice({deviceId: this.$props.deviceId, sidPhrase: this.$data.sidPhrase})
+        this.fetchRemoteDevice({deviceId: this.$props.deviceId, sidPhrase: this.$data.seedPhrase})
         .then(() => {
           this.loading = false
           this.toggleModal()
@@ -84,7 +84,7 @@ export default {
         })
       } else {
         this.toggleModal()
-        alert("Sid phrase can't be empty")
+        alert("Seed phrase can't be empty")
         this.loading = false
       }
     },

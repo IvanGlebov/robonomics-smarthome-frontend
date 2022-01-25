@@ -77,7 +77,7 @@ export default {
         axios.post('http://localhost:8000/launchDevice', {
           id: this.$props.device.id,
           seed: this.$data.seedPhrase,
-          state: this.$data.checkboxState
+          status: this.$data.checkboxState.toString()
         })
             .then(res => {
               if (res.status === 200) {

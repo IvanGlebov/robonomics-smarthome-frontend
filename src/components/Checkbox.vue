@@ -1,6 +1,6 @@
 <template>
   <div class="checkbox-inner-wrapper">
-    <input @change="$emit('change', $event.target.checked)" type="checkbox"/>
+    <input :value="checkedProp" @change="$emit('change', $event.target.checked)" type="checkbox"/>
     <div class="checkbox-description"><slot/></div>
   </div>
 </template>
@@ -10,6 +10,13 @@ import Input from "./Input";
 export default {
   name: "Checkbox",
   components: {Input},
+  model: {
+    prop: "checkedProp",
+    event: "change"
+  },
+  props: {
+    checkedProp: Boolean,
+  }
 }
 </script>
 
